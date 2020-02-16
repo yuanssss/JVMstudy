@@ -501,10 +501,12 @@ JVM常见的GC算法
     - 空间问题，标记清理之后会产生大量不连续的内存碎片（被标记清除的对象掺杂在未被清除对象之中），空间碎片太多可能会导致后续使用中无法找到足够的连续内存而提前出发另一次的垃圾搜集动作。GC次数越多，碎片越严重。
   - ![截屏2020-02-15下午4.24.31](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-15下午4.24.31.png)
   - 上图中Runtime stack相当于根搜索算法中的Root，绿色代表被引用的，红色代表需要被回收的
+  
 - 标记-整理算法（Mark-Compact）
   - 标记过程仍然一样，但后续步骤不是进行直接清理，而是令所有存活的对象一端移动，然后直接清理掉这端边界以外的内存。
   - 没有内存碎片
   - 比Mark-Sweep耗费更多的时间进行compact
+  
 - 复制算法（Copying） 
   - 将可用内存划分为两块，每次只使用其中的一块，当半区内存用完了，仅将还存活的对象复制到另外一块上面，然后就把原来的整块内存一次性清理掉
   - 这样使得每次内存回收都是对整个半区的回收，内存分配时也就不用考虑内存碎片的问题，只需要移动堆顶指针，按顺序分配内存就可以了，实现简单，运行高效。只是这种算法的代价是将内存缩小为原来的一半，代价高昂。
@@ -516,6 +518,7 @@ JVM常见的GC算法
   - ![截屏2020-02-15下午4.40.59](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-15下午4.40.59.png)
   - ![截屏2020-02-15下午4.41.42](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-15下午4.41.42.png)
   - 适合存活周期短的算法 
+  
 - 分代算法（Generational）
   - 当前商业虚拟机的垃圾收集都是采用“分代收集”（Generational Collecting）算法，根据对象不同的存活周期将直接内存划分为几块。
   - 一般是把Java堆分作新生代和老年代，这样就可以根据各个年代的特点采用最适当的收集算法，譬如新生代每次GC都有大批对象死去，只有少量存活，那就选用复制算法只需要付出少量存活对象的复制成本就可以完成收集。
@@ -527,4 +530,90 @@ JVM常见的GC算法
     - 新生成的对象都放在新生代。年轻代用复制算法进行GC（理论上。年轻代对象的生命周期非常短，所以适合复制算法）
     - 年轻代分三个区。一个Eden区，两个Survivor区。对象在Eden区生成。当Eden区满时，还存活的对象将被复制到一个Survivor区，当这个Survivor区满时，该区的存活对象将被复制到另外一个Survivor区，当第二个Survivor区满时，此时从第一个Survivor区复制过来并且还存活的对象将被复制到老年代。
     - 可以根据GC log的信息调整Eden和两个Survivor的比例。
+  - 老年代（Old Generation）
+    - 存放了经过一次或多次GC还存活的对象
+    - 一般采用Mark-Sweep或者Mark-Compact算法进行GC
+    - 有多种垃圾收集器可以选择。每种垃圾收集器可以看作一个GC算法的具体实现。可以根据具体应用的需求选用合适的垃圾收集器。
+
+  内存分配
+
+  - 堆上分配
+
+    大多数在eden上分配，偶尔会直接在old上分配
+
+    细节取决于GC的实现
+
+  - 栈上分配
+
+    原子类型的局部变量
+
+  内存回收
+
+  - GC要做的是将那些dead的对象所占用的内存回收掉
+    - Hotspot认为没有引用的对象是dead的
+    - Hotspot将引用分为四种：Strong、Soft、Weak、Phantom
+    - Strong是默认通过Object o=new Object（）这种方式赋值引用
+    - Soft、Weak、Phantom三种则是继承Referenece
+  - 在Full GC时会对Reference类型的引用进行特殊处理
+    - Soft：内存不够时一定会被GC、长期不用也会被GC
+    - Weak：一定会被GC，当被mark为dead，会在ReferenceQueue中通知
+    - Phantom：本来就没引用，当从jvm heap中释放时会通知
+
+  GC的时机
+
+  - 在分代模型的基础上，GC从时机上分为两种：Scavenge GC和Full GC
+
+  - Scavenge GC（Minor GC）
+
+    - 触发时机：新对象生成时，Eden空间满了
+    - 理论上Eden区大多数对象会在Scavenge GC回收，复制算法的执行效率会很高，Scavenge GC事件比较短。
+
+  - Full GC
+
+    - 对整个JVM进行整理，包括Young、Old
+
+    - 主要的触发时机：1）Old满了 2）Perm满了
+
+      3）system.gc()
+
+    - 效率很低，尽量减少Full GC
+
+  垃圾收集器的“并行”和“并发”
+
+  - 并行（Parallel）：指多个收集器的线程同时工作，但是用户线程处于等待状态
+  - 并发（Concurrent）：指收集器在工作的同时，可以允许用户的线程工作
+    - 并发不代表解决了GC停顿的问题，在关键的步骤还是要停顿。比如在收集器标记垃圾的时候。但是在清除垃圾的时候，用户线程可以和GC线程并发执行。
+
+  Serial收集器
+
+  - 单线程收集器，收集时会暂停所有工作线程（Stop The World 简称：STW），使用复制收集算法，虚拟机运行在Client模式时的默认新生代收集器。
+  - 最早的收集器，单线程进行GC
+  - New和Old Generation都可以使用
+  - 在新生代，采用复制算法；在老年代，采用Mark-Compact算法
+  - 因为是单线程GC，没有多线程切换的额外开销，简单实用
+  - ![截屏2020-02-16下午6.13.33](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-16下午6.13.33.png)
+
+  ParNew收集器
+
+  - ParNew收集器是Serial的多线程版本，除了使用多个收集线程外，其余行为包括算法、STW、对象分配规则、回收策略等都与Serial收集器一摸一样‘
+  - 对应的这种收集器是虚拟机运行在Server模式的默认新生代收集器，在单CPU的环境中，ParNew收集器并不会比Serial收集器有更好的效果
+  - 可以通过-XX：ParallelGCThreads来控制GC线程数的多少。需要结合具体的CPU的个数
+
+  Parallel Scavenge收集器
+
+  - 是一个多线程收集器，也是使用复制算法，但是它的对象分配规则和回收策略都与ParNew收集器有所不同，它是以吞吐量最大化为目标的收集器实现（GC时间占总运行时间最小），允许较长时间的STW换取总吞吐量的最大化。
+
+  Parallel Old
+
+  - Parallel Scavenge在老年代的实现
+
+  - 采用多线程，Mark-Compact算法
+
+  - 更注重吞吐量
+
+  - Parallel Scavenge+Parallel Old=高吞吐量
+
+  - ![截屏2020-02-16下午6.25.44](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-16下午6.25.44.png)
+
+    
 
