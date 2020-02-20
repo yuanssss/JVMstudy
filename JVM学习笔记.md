@@ -546,9 +546,11 @@ JVM常见的GC算法
   - 栈上分配
 
     原子类型的局部变量
+  
+  - ![截屏2020-02-19下午4.30.05](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-19下午4.30.05.png)
 
   内存回收
-
+  
   - GC要做的是将那些dead的对象所占用的内存回收掉
     - Hotspot认为没有引用的对象是dead的
     - Hotspot将引用分为四种：Strong、Soft、Weak、Phantom
@@ -556,7 +558,7 @@ JVM常见的GC算法
     - Soft、Weak、Phantom三种则是继承Referenece
   - 在Full GC时会对Reference类型的引用进行特殊处理
     - Soft：内存不够时一定会被GC、长期不用也会被GC
-    - Weak：一定会被GC，当被mark为dead，会在ReferenceQueue中通知
+  - Weak：一定会被GC，当被mark为dead，会在ReferenceQueue中通知
     - Phantom：本来就没引用，当从jvm heap中释放时会通知
 
   GC的时机
@@ -564,8 +566,8 @@ JVM常见的GC算法
   - 在分代模型的基础上，GC从时机上分为两种：Scavenge GC和Full GC
 
   - Scavenge GC（Minor GC）
-
-    - 触发时机：新对象生成时，Eden空间满了
+  
+  - 触发时机：新对象生成时，Eden空间满了
     - 理论上Eden区大多数对象会在Scavenge GC回收，复制算法的执行效率会很高，Scavenge GC事件比较短。
 
   - Full GC
@@ -579,27 +581,27 @@ JVM常见的GC算法
     - 效率很低，尽量减少Full GC
 
   垃圾收集器的“并行”和“并发”
-
+  
   - 并行（Parallel）：指多个收集器的线程同时工作，但是用户线程处于等待状态
-  - 并发（Concurrent）：指收集器在工作的同时，可以允许用户的线程工作
+- 并发（Concurrent）：指收集器在工作的同时，可以允许用户的线程工作
     - 并发不代表解决了GC停顿的问题，在关键的步骤还是要停顿。比如在收集器标记垃圾的时候。但是在清除垃圾的时候，用户线程可以和GC线程并发执行。
 
   Serial收集器
-
+  
   - 单线程收集器，收集时会暂停所有工作线程（Stop The World 简称：STW），使用复制收集算法，虚拟机运行在Client模式时的默认新生代收集器。
   - 最早的收集器，单线程进行GC
   - New和Old Generation都可以使用
   - 在新生代，采用复制算法；在老年代，采用Mark-Compact算法
-  - 因为是单线程GC，没有多线程切换的额外开销，简单实用
+- 因为是单线程GC，没有多线程切换的额外开销，简单实用
   - ![截屏2020-02-16下午6.13.33](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-16下午6.13.33.png)
 
   ParNew收集器
-
+  
   - ParNew收集器是Serial的多线程版本，除了使用多个收集线程外，其余行为包括算法、STW、对象分配规则、回收策略等都与Serial收集器一摸一样‘
-  - 对应的这种收集器是虚拟机运行在Server模式的默认新生代收集器，在单CPU的环境中，ParNew收集器并不会比Serial收集器有更好的效果
+- 对应的这种收集器是虚拟机运行在Server模式的默认新生代收集器，在单CPU的环境中，ParNew收集器并不会比Serial收集器有更好的效果
   - 可以通过-XX：ParallelGCThreads来控制GC线程数的多少。需要结合具体的CPU的个数
 
-  Parallel Scavenge收集器
+  Parallel Scavenge收集器（简称ps）
 
   - 是一个多线程收集器，也是使用复制算法，但是它的对象分配规则和回收策略都与ParNew收集器有所不同，它是以吞吐量最大化为目标的收集器实现（GC时间占总运行时间最小），允许较长时间的STW换取总吞吐量的最大化。
 
@@ -614,6 +616,34 @@ JVM常见的GC算法
   - Parallel Scavenge+Parallel Old=高吞吐量
 
   - ![截屏2020-02-16下午6.25.44](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-16下午6.25.44.png)
+  
+  
+  CMS(Current Mark Sweep)收集器
+  
+  - CMS是一种以最短停顿时间为目标的收集器，使用CMS并不能达到GC效率最高（总体GC时间最小），但它能尽可能降低GC时服务的停顿时间，CMS收集器使用的是标记-清除算法。
+  - 使用-XX：+UseConcMarkSweepGC打开
+  - CMS以牺牲CPU资源的代价来减少用户线程的停顿。但用户个数少于4的时候，有可能对吞吐量影响非常大。
+  - CMS在并发清理的过程中，用户线程还在跑。这时候需要预留一部分空间给用户线程
+  - CMS使用Mark-Sweep，会带来碎片问题。碎片过多容易触发Full GC
+  
+  Java内存泄露的经典原因
+  
+  - 对象定义在错误的范围（Wrong Scope）
+    - 如果Foo实例对象的生命较长，会导致临时性内存泄漏。（这里的names变量起始只有临时作用）
+    - ![截屏2020-02-19下午4.43.38](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-19下午4.43.38.png)
+    - JVM喜欢生命周期短的对象，这样做已经足够高效
+    - ![截屏2020-02-19下午4.44.21](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-19下午4.44.21.png)
+  - 异常处理不当
+    - 错误做法
+    - ![截屏2020-02-19下午4.46.31](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-19下午4.46.31.png)
+    - 正确做法
+    - ![截屏2020-02-19下午4.46.53](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-19下午4.46.53.png)
+  - 集合数据管理不当
+    - 当使用Array-based的数据结构（ArrayList，HashMap等）时，尽量减少resize
+      - 比如new ArrayList时，尽量估算size，在创建的时候把size确定
+      - 减少resize可以避免美哟欧必要的array copying，gc碎片等问题
+    - 如果一个List只需要顺序访问，不需要随机访问（Random Access），用LinkedList代替
+      -  LinkedList本质时候链表，不需要resize，但适用于顺序访问，ArrayList本质是数组。
 
-    
+
 
