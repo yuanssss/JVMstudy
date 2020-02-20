@@ -644,6 +644,36 @@ JVM常见的GC算法
       - 减少resize可以避免美哟欧必要的array copying，gc碎片等问题
     - 如果一个List只需要顺序访问，不需要随机访问（Random Access），用LinkedList代替
       -  LinkedList本质时候链表，不需要resize，但适用于顺序访问，ArrayList本质是数组。
+  
+  ````java
+  -verbose:gc
+  -Xms20M
+  -Xmx20M    //堆的最大容量
+  -Xmn10M    //新生代大小
+  -XX:+PrintGCDetails
+  -XX:SurvivorRatio=8   //eden空间和survivor空间的比
+  
+  
+  [GC (Allocation Failure) [PSYoungGen: 5628K->496K(9216K)] 5628K->5624K(19456K), 0.0033418 secs]   
+  //PSYoungGen ：Parallel Scavenge收集器年轻代    5628k是GC前的数值 496k是GC后的 9216k=9m是设置的年轻代大小，其中有1m是to survivor在GC前不存放数据    
+  //5628k-496k=5132k 执行完GC后新生代释放的空间。   
+  [Times: user=0.02 sys=0.00, real=0.00 secs] 
+  [Full GC (Ergonomics) [PSYoungGen: 496K->0K(9216K)] [ParOldGen: 5128K->5404K(10240K)] 5624K->5404K(19456K), [Metaspace: 2634K->2634K(1056768K)], 0.0034002 secs] [Times: user=0.01 sys=0.00, real=0.00 secs] 
+  hello world
+    
+  //汇总信息
+  Heap
+   PSYoungGen      total 9216K, used 3397K [0x00000007bf600000, 0x00000007c0000000, 0x00000007c0000000)
+    eden space 8192K, 41% used [0x00000007bf600000,0x00000007bf9516c0,0x00000007bfe00000)
+    from space 1024K, 0% used [0x00000007bfe00000,0x00000007bfe00000,0x00000007bff00000)
+    to   space 1024K, 0% used [0x00000007bff00000,0x00000007bff00000,0x00000007c0000000)
+   ParOldGen       total 10240K, used 5404K [0x00000007bec00000, 0x00000007bf600000, 0x00000007bf600000)
+    object space 10240K, 52% used [0x00000007bec00000,0x00000007bf147338,0x00000007bf600000)
+   Metaspace       used 2642K, capacity 4486K, committed 4864K, reserved 1056768K
+    class space    used 286K, capacity 386K, committed 512K, reserved 1048576K
+  ````
+  
+  当新生代无法容纳一个待创建的对象时，新对象将在老年代诞生。
 
 
 
