@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ee8ccb73-3fd1-4c00-8117-8bc2756d988c" name="Default Changelist" comment="" />
+    <list default="true" id="ee8ccb73-3fd1-4c00-8117-8bc2756d988c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/gc/MyTest3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/gc/MyTest4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,7 +86,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="configurable.group.build" />
   </component>
-  <component name="RunManager" selected="Application.MyTest2">
+  <component name="RunManager" selected="Application.MyTest4">
     <configuration name="MyTest1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.demo.memory.MyTest1" />
       <module name="jvm_lecture.main" />
@@ -133,6 +144,20 @@
       </method>
     </configuration>
     <configuration name="MyTest3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.demo.gc.MyTest3" />
+      <module name="jvm_lecture.main" />
+      <option name="VM_PARAMETERS" value="-verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8 -XX:PretenureSizeThreshold=4194304 -XX:MaxTenuringThreshold=5 -XX:+PrintTenuringDistribution" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.demo.gc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyTest3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.demo.memory.MyTest3" />
       <module name="jvm_lecture.main" />
       <extension name="coverage">
@@ -159,6 +184,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MyTest4" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.demo.gc.MyTest4" />
+      <module name="jvm_lecture.main" />
+      <option name="VM_PARAMETERS" value="-verbose:gc -Xmx200M -Xmn50M -XX:TargetSurvivorRatio=60 -XX:+PrintTenuringDistribution -XX:+PrintGCDateStamps -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:MaxTenuringThreshold=3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.demo.gc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.MyTest1" />
       <item itemvalue="Application.MyTest2" />
@@ -167,11 +206,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MyTest2" />
-        <item itemvalue="Application.MyTest1" />
         <item itemvalue="Application.MyTest4" />
         <item itemvalue="Application.MyTest3" />
+        <item itemvalue="Application.MyTest3" />
         <item itemvalue="Application.MyTest2" />
+        <item itemvalue="Application.MyTest1" />
       </list>
     </recent_temporary>
   </component>
@@ -224,6 +263,7 @@
       <workItem from="1581664283162" duration="545000" />
       <workItem from="1581736633457" duration="5000" />
       <workItem from="1582186735508" duration="4095000" />
+      <workItem from="1582268456500" duration="5724000" />
     </task>
     <task id="LOCAL-00001" summary="2-20">
       <created>1582197673745</created>
@@ -251,10 +291,10 @@
       <screen x="0" y="23" width="1390" height="877" />
     </state>
     <state x="295" y="127" key="#Notifications/0.23.1390.877@0.23.1390.877" timestamp="1581603140982" />
-    <state x="220" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582192775958">
+    <state x="200" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582274163921">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state x="220" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1390.877@0.23.1390.877" timestamp="1582192775958" />
+    <state x="200" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1390.877@0.23.1390.877" timestamp="1582274163921" />
     <state x="507" y="169" key="#com.intellij.ide.util.MemberChooser" timestamp="1581413060487">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
@@ -267,22 +307,22 @@
       <screen x="0" y="23" width="1390" height="877" />
     </state>
     <state x="278" y="62" key="CommitChangelistDialog2/0.23.1390.877@0.23.1390.877" timestamp="1582197673468" />
-    <state width="1348" height="214" key="GridCell.Tab.0.bottom" timestamp="1582197675386">
+    <state width="1348" height="214" key="GridCell.Tab.0.bottom" timestamp="1582274193222">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state width="1348" height="214" key="GridCell.Tab.0.bottom/0.23.1390.877@0.23.1390.877" timestamp="1582197675386" />
-    <state width="1348" height="214" key="GridCell.Tab.0.center" timestamp="1582197675386">
+    <state width="1348" height="214" key="GridCell.Tab.0.bottom/0.23.1390.877@0.23.1390.877" timestamp="1582274193222" />
+    <state width="1348" height="214" key="GridCell.Tab.0.center" timestamp="1582274193221">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state width="1348" height="214" key="GridCell.Tab.0.center/0.23.1390.877@0.23.1390.877" timestamp="1582197675386" />
-    <state width="1348" height="214" key="GridCell.Tab.0.left" timestamp="1582197675386">
+    <state width="1348" height="214" key="GridCell.Tab.0.center/0.23.1390.877@0.23.1390.877" timestamp="1582274193221" />
+    <state width="1348" height="214" key="GridCell.Tab.0.left" timestamp="1582274193220">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state width="1348" height="214" key="GridCell.Tab.0.left/0.23.1390.877@0.23.1390.877" timestamp="1582197675386" />
-    <state width="1348" height="214" key="GridCell.Tab.0.right" timestamp="1582197675386">
+    <state width="1348" height="214" key="GridCell.Tab.0.left/0.23.1390.877@0.23.1390.877" timestamp="1582274193220" />
+    <state width="1348" height="214" key="GridCell.Tab.0.right" timestamp="1582274193221">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state width="1348" height="214" key="GridCell.Tab.0.right/0.23.1390.877@0.23.1390.877" timestamp="1582197675386" />
+    <state width="1348" height="214" key="GridCell.Tab.0.right/0.23.1390.877@0.23.1390.877" timestamp="1582274193221" />
     <state width="1348" height="276" key="GridCell.Tab.1.bottom" timestamp="1582197675381">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
@@ -303,10 +343,10 @@
       <screen x="0" y="23" width="1390" height="877" />
     </state>
     <state x="196" y="100" key="SettingsEditor/0.23.1390.877@0.23.1390.877" timestamp="1581603829342" />
-    <state x="372" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1581736633399">
+    <state x="372" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1582268459118">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state x="372" y="294" key="com.intellij.ide.util.TipDialog/0.23.1390.877@0.23.1390.877" timestamp="1581736633399" />
+    <state x="372" y="294" key="com.intellij.ide.util.TipDialog/0.23.1390.877@0.23.1390.877" timestamp="1582268459118" />
     <state x="359" y="213" key="search.everywhere.popup" timestamp="1581413054248">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
