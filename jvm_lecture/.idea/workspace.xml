@@ -2,15 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee8ccb73-3fd1-4c00-8117-8bc2756d988c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/gc/MyTest3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/gc/MyTest4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -263,7 +254,7 @@
       <workItem from="1581664283162" duration="545000" />
       <workItem from="1581736633457" duration="5000" />
       <workItem from="1582186735508" duration="4095000" />
-      <workItem from="1582268456500" duration="5724000" />
+      <workItem from="1582268456500" duration="5738000" />
     </task>
     <task id="LOCAL-00001" summary="2-20">
       <created>1582197673745</created>
@@ -272,7 +263,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582197673745</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="2-20">
+      <created>1582285973185</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1582285973185</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -303,26 +301,26 @@
       <screen x="0" y="23" width="1390" height="877" />
     </state>
     <state x="382" y="196" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1390.877@0.23.1390.877" timestamp="1581413776925" />
-    <state x="278" y="62" key="CommitChangelistDialog2" timestamp="1582197673468">
+    <state x="278" y="62" key="CommitChangelistDialog2" timestamp="1582285972919">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state x="278" y="62" key="CommitChangelistDialog2/0.23.1390.877@0.23.1390.877" timestamp="1582197673468" />
-    <state width="1348" height="214" key="GridCell.Tab.0.bottom" timestamp="1582274193222">
+    <state x="278" y="62" key="CommitChangelistDialog2/0.23.1390.877@0.23.1390.877" timestamp="1582285972919" />
+    <state width="1348" height="214" key="GridCell.Tab.0.bottom" timestamp="1582285982666">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state width="1348" height="214" key="GridCell.Tab.0.bottom/0.23.1390.877@0.23.1390.877" timestamp="1582274193222" />
-    <state width="1348" height="214" key="GridCell.Tab.0.center" timestamp="1582274193221">
+    <state width="1348" height="214" key="GridCell.Tab.0.bottom/0.23.1390.877@0.23.1390.877" timestamp="1582285982666" />
+    <state width="1348" height="214" key="GridCell.Tab.0.center" timestamp="1582285982666">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state width="1348" height="214" key="GridCell.Tab.0.center/0.23.1390.877@0.23.1390.877" timestamp="1582274193221" />
-    <state width="1348" height="214" key="GridCell.Tab.0.left" timestamp="1582274193220">
+    <state width="1348" height="214" key="GridCell.Tab.0.center/0.23.1390.877@0.23.1390.877" timestamp="1582285982666" />
+    <state width="1348" height="214" key="GridCell.Tab.0.left" timestamp="1582285982665">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state width="1348" height="214" key="GridCell.Tab.0.left/0.23.1390.877@0.23.1390.877" timestamp="1582274193220" />
-    <state width="1348" height="214" key="GridCell.Tab.0.right" timestamp="1582274193221">
+    <state width="1348" height="214" key="GridCell.Tab.0.left/0.23.1390.877@0.23.1390.877" timestamp="1582285982665" />
+    <state width="1348" height="214" key="GridCell.Tab.0.right" timestamp="1582285982666">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state width="1348" height="214" key="GridCell.Tab.0.right/0.23.1390.877@0.23.1390.877" timestamp="1582274193221" />
+    <state width="1348" height="214" key="GridCell.Tab.0.right/0.23.1390.877@0.23.1390.877" timestamp="1582285982666" />
     <state width="1348" height="276" key="GridCell.Tab.1.bottom" timestamp="1582197675381">
       <screen x="0" y="23" width="1390" height="877" />
     </state>

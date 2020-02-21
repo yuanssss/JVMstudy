@@ -568,21 +568,23 @@ JVM常见的GC算法
   - Scavenge GC（Minor GC）
   
   - 触发时机：新对象生成时，Eden空间满了
-    - 理论上Eden区大多数对象会在Scavenge GC回收，复制算法的执行效率会很高，Scavenge GC事件比较短。
-
-  - Full GC
-
-    - 对整个JVM进行整理，包括Young、Old
-
-    - 主要的触发时机：1）Old满了 2）Perm满了
-
-      3）system.gc()
-
-    - 效率很低，尽量减少Full GC
-
+    
+- 理论上Eden区大多数对象会在Scavenge GC回收，复制算法的执行效率会很高，Scavenge GC事件比较短。
+    
+- Full GC
+  
+  - 对整个JVM进行整理，包括Young、Old
+  
+  - 主要的触发时机：1）Old满了 2）Perm满了
+  
+    3）system.gc()
+  
+  - 效率很低，尽量减少Full GC
+  
   垃圾收集器的“并行”和“并发”
   
   - 并行（Parallel）：指多个收集器的线程同时工作，但是用户线程处于等待状态
+  
 - 并发（Concurrent）：指收集器在工作的同时，可以允许用户的线程工作
     - 并发不代表解决了GC停顿的问题，在关键的步骤还是要停顿。比如在收集器标记垃圾的时候。但是在清除垃圾的时候，用户线程可以和GC线程并发执行。
 
@@ -592,12 +594,14 @@ JVM常见的GC算法
   - 最早的收集器，单线程进行GC
   - New和Old Generation都可以使用
   - 在新生代，采用复制算法；在老年代，采用Mark-Compact算法
+  
 - 因为是单线程GC，没有多线程切换的额外开销，简单实用
   - ![截屏2020-02-16下午6.13.33](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-16下午6.13.33.png)
 
   ParNew收集器
   
   - ParNew收集器是Serial的多线程版本，除了使用多个收集线程外，其余行为包括算法、STW、对象分配规则、回收策略等都与Serial收集器一摸一样‘
+  
 - 对应的这种收集器是虚拟机运行在Server模式的默认新生代收集器，在单CPU的环境中，ParNew收集器并不会比Serial收集器有更好的效果
   - 可以通过-XX：ParallelGCThreads来控制GC线程数的多少。需要结合具体的CPU的个数
 
@@ -616,18 +620,18 @@ JVM常见的GC算法
   - Parallel Scavenge+Parallel Old=高吞吐量
 
   - ![截屏2020-02-16下午6.25.44](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-16下午6.25.44.png)
-  
-  
+
+
   CMS(Current Mark Sweep)收集器
-  
+
   - CMS是一种以最短停顿时间为目标的收集器，使用CMS并不能达到GC效率最高（总体GC时间最小），但它能尽可能降低GC时服务的停顿时间，CMS收集器使用的是标记-清除算法。
   - 使用-XX：+UseConcMarkSweepGC打开
   - CMS以牺牲CPU资源的代价来减少用户线程的停顿。但用户个数少于4的时候，有可能对吞吐量影响非常大。
   - CMS在并发清理的过程中，用户线程还在跑。这时候需要预留一部分空间给用户线程
   - CMS使用Mark-Sweep，会带来碎片问题。碎片过多容易触发Full GC
-  
+
   Java内存泄露的经典原因
-  
+
   - 对象定义在错误的范围（Wrong Scope）
     - 如果Foo实例对象的生命较长，会导致临时性内存泄漏。（这里的names变量起始只有临时作用）
     - ![截屏2020-02-19下午4.43.38](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-19下午4.43.38.png)
@@ -644,7 +648,7 @@ JVM常见的GC算法
       - 减少resize可以避免美哟欧必要的array copying，gc碎片等问题
     - 如果一个List只需要顺序访问，不需要随机访问（Random Access），用LinkedList代替
       -  LinkedList本质时候链表，不需要resize，但适用于顺序访问，ArrayList本质是数组。
-  
+
   ````java
   -verbose:gc
   -Xms20M
@@ -672,8 +676,59 @@ JVM常见的GC算法
    Metaspace       used 2642K, capacity 4486K, committed 4864K, reserved 1056768K
     class space    used 286K, capacity 386K, committed 512K, reserved 1048576K
   ````
-  
+
   当新生代无法容纳一个待创建的对象时，新对象将在老年代诞生。
 
+  经历多次GC后，存活的对象会在From Survivor与To Survivor之间来回存放，而这里面的一个前提则是这两个空间有足够大小来存放这些数据，在GC算法中，会计算每个对象的年龄大小，如果达到某个年龄后发现总大小已经大于了Survivor空间的50%，那么这时就要调整阈值，不能再继续等到默认的15次GC后才完成晋升，因为这样会导致Survivor空间不足，所以需要调整阈值，让这些存活对象尽快完成晋升。
 
+  ### CMS垃圾回收器（Concurrent Mark Sweep）
+
+  - 枚举根节点 
+
+    当执行系统停顿下来后，并不需要一个不漏地检查完所有执行上下文和全局的引用位置，虚拟机应当是有办法直接得知哪些地方存放着对象引用。在HotSpot的实现中，是使用一组成为oopMap的数据结构来达到这一目的。
+
+  - 安全点
+
+    - 在OopMap的协助下，HotSpot可以快速且准确地完成GC Root枚举，但一个很现实的问题随之而来：可能导致引用关系变化，或者OopMap的内容变化的指令非常多，如果为每一条指令都生成对应的OopMap，那将会需要大量的额外空间，这样GC的空间成本将变得更高。
+    - 实际上HotSpot并没有为每条指令都生成OopMap，而只是在“特定的位置”记录了这些信息，这些位置称为安全点（Safepoint），即程序执行时并非在所有地方都能停顿下来开始GC，只有在达到安全点时才能暂停。
+    - 抢占式中断：它不需要线程的执行代码主动去配合，在GC发生时，首先吧所有线程全部中断，如果有线程中断的地方不在安全点上，就恢复线程，让它“跑”到安全点上。
+    - 主动式中断：当GC需要中断线程的时候，不直接对线程操作，仅仅简单的设置一个标志，各个线程执行的时候主动去轮询这个标志，发现中断标志为真时就自己中断挂起。轮询标志的地方和安全点时重合的。
+
+    ​    现在几乎没有虚拟机采用抢占式中断来暂停线程从而相应GC事件
+
+  - 安全区域
+
+    - 当程序不执行的时候（处于Sleep或者Blocked状态），这时候线程无法响应JVM中断请求。对于这种情况，就需要安全区域（Safe Region）来解决了。
+    - 在线程执行到Safe Region中的代码时，首先标识自己已经进入了Safe Region，那样，当在这段时间里JVM要发起GC时，就不用管标识自己为Safe Region状态的线程了。在线程 要离开Safe Region时，它要检查系统是否完成根节点枚举，如果完成，那线程就继续执行，否则它就必须等待知道可以安全离开Safe Region的信号为止。
+
+  - CMS收集器，以获取最短回收停顿时间为目标，多数应用于互联网站或者B/S系统的服务器端上。只适用于老年代。
+
+  - CMS是基于“标记-清除”算法实现的，整个过程分为4个步骤：
+
+    - 初始标记（CMS initial mark）
+    - 并发标记（CMS concurrent mark）
+    - 重新标记（CMS remark）
+    - 并发清除（CMS concurrent sweep）
+
+  - 其中，初始标记、重新标记这两个步骤仍然需要“Stop The World”；
+
+  - 初始标记只是标记一下GC Root能直接关联到的对象，速度很快
+
+  - 并发标记阶段就是进行GC Roots Tracing的过程；
+
+  - 重新标记阶段则是为了修正并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，这个阶段的停顿时间一般会比初始标记阶段稍长一些，但远比并发标记的时间短。
+
+  - ![截屏2020-02-21下午7.34.17](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-21下午7.34.17.png)
+
+  - 缺点：
+
+    CMS收集器对CPU资源非常敏感
+
+    CMS收集器无法处理浮动垃圾
+
+  - 空间分配担保：
+
+    - ![截屏2020-02-21下午7.46.10](/Users/ys/Library/Application Support/typora-user-images/截屏2020-02-21下午7.46.10.png)
+
+  -  
 
