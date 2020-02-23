@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee8ccb73-3fd1-4c00-8117-8bc2756d988c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/gc/MyTest5.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +78,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="configurable.group.build" />
   </component>
-  <component name="RunManager" selected="Application.MyTest4">
+  <component name="RunManager" selected="Application.MyTest5">
     <configuration name="MyTest1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.demo.memory.MyTest1" />
       <module name="jvm_lecture.main" />
@@ -189,19 +190,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MyTest5" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.demo.gc.MyTest5" />
+      <module name="jvm_lecture.main" />
+      <option name="VM_PARAMETERS" value="-verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8 -XX:+UseConcMarkSweepGC" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.demo.gc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.MyTest1" />
       <item itemvalue="Application.MyTest2" />
       <item itemvalue="Application.MyTest3" />
       <item itemvalue="Application.MyTest4" />
+      <item itemvalue="Application.MyTest5" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MyTest5" />
         <item itemvalue="Application.MyTest4" />
         <item itemvalue="Application.MyTest3" />
         <item itemvalue="Application.MyTest3" />
         <item itemvalue="Application.MyTest2" />
-        <item itemvalue="Application.MyTest1" />
       </list>
     </recent_temporary>
   </component>
@@ -255,6 +271,7 @@
       <workItem from="1581736633457" duration="5000" />
       <workItem from="1582186735508" duration="4095000" />
       <workItem from="1582268456500" duration="5738000" />
+      <workItem from="1582446955773" duration="1738000" />
     </task>
     <task id="LOCAL-00001" summary="2-20">
       <created>1582197673745</created>
@@ -289,10 +306,10 @@
       <screen x="0" y="23" width="1390" height="877" />
     </state>
     <state x="295" y="127" key="#Notifications/0.23.1390.877@0.23.1390.877" timestamp="1581603140982" />
-    <state x="200" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582274163921">
+    <state x="200" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582447419349">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state x="200" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1390.877@0.23.1390.877" timestamp="1582274163921" />
+    <state x="200" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1390.877@0.23.1390.877" timestamp="1582447419349" />
     <state x="507" y="169" key="#com.intellij.ide.util.MemberChooser" timestamp="1581413060487">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
@@ -305,22 +322,22 @@
       <screen x="0" y="23" width="1390" height="877" />
     </state>
     <state x="278" y="62" key="CommitChangelistDialog2/0.23.1390.877@0.23.1390.877" timestamp="1582285972919" />
-    <state width="1348" height="214" key="GridCell.Tab.0.bottom" timestamp="1582285982666">
+    <state width="1348" height="214" key="GridCell.Tab.0.bottom" timestamp="1582447369194">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state width="1348" height="214" key="GridCell.Tab.0.bottom/0.23.1390.877@0.23.1390.877" timestamp="1582285982666" />
-    <state width="1348" height="214" key="GridCell.Tab.0.center" timestamp="1582285982666">
+    <state width="1348" height="214" key="GridCell.Tab.0.bottom/0.23.1390.877@0.23.1390.877" timestamp="1582447369194" />
+    <state width="1348" height="214" key="GridCell.Tab.0.center" timestamp="1582447369193">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state width="1348" height="214" key="GridCell.Tab.0.center/0.23.1390.877@0.23.1390.877" timestamp="1582285982666" />
-    <state width="1348" height="214" key="GridCell.Tab.0.left" timestamp="1582285982665">
+    <state width="1348" height="214" key="GridCell.Tab.0.center/0.23.1390.877@0.23.1390.877" timestamp="1582447369193" />
+    <state width="1348" height="214" key="GridCell.Tab.0.left" timestamp="1582447369193">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state width="1348" height="214" key="GridCell.Tab.0.left/0.23.1390.877@0.23.1390.877" timestamp="1582285982665" />
-    <state width="1348" height="214" key="GridCell.Tab.0.right" timestamp="1582285982666">
+    <state width="1348" height="214" key="GridCell.Tab.0.left/0.23.1390.877@0.23.1390.877" timestamp="1582447369193" />
+    <state width="1348" height="214" key="GridCell.Tab.0.right" timestamp="1582447369194">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state width="1348" height="214" key="GridCell.Tab.0.right/0.23.1390.877@0.23.1390.877" timestamp="1582285982666" />
+    <state width="1348" height="214" key="GridCell.Tab.0.right/0.23.1390.877@0.23.1390.877" timestamp="1582447369194" />
     <state width="1348" height="276" key="GridCell.Tab.1.bottom" timestamp="1582197675381">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
@@ -341,10 +358,10 @@
       <screen x="0" y="23" width="1390" height="877" />
     </state>
     <state x="196" y="100" key="SettingsEditor/0.23.1390.877@0.23.1390.877" timestamp="1581603829342" />
-    <state x="372" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1582268459118">
+    <state x="372" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1582447047902">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
-    <state x="372" y="294" key="com.intellij.ide.util.TipDialog/0.23.1390.877@0.23.1390.877" timestamp="1582268459118" />
+    <state x="372" y="294" key="com.intellij.ide.util.TipDialog/0.23.1390.877@0.23.1390.877" timestamp="1582447047902" />
     <state x="359" y="213" key="search.everywhere.popup" timestamp="1581413054248">
       <screen x="0" y="23" width="1390" height="877" />
     </state>
